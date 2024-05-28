@@ -9,11 +9,20 @@ on:
         required: true
         options:
           - dev
-          - test
   
 jobs:
   terraform:
+    name: 'infra'
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
+      run:
+        shell: bash
 
     steps:
     # Checkout the repository to the GitHub Actions runner
